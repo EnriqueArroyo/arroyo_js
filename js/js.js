@@ -36,6 +36,7 @@ const producto4 = new Producto(
   "Hay que poner algo aca"
 );
 let total = 0;
+const envio = 150;
 document.getElementById("total").innerHTML = total;
 
 const pedido = [producto1, producto2, producto3, producto4];
@@ -80,7 +81,8 @@ function calcTotal() {
         producto.precio * producto.cantidad
     );
   });
-  document.getElementById("total").innerHTML = totalFinal;
+  document.getElementById("total").innerHTML = totalFinal+envio;
+  return totalFinal;
 }
 
 function refrescar() {
@@ -103,4 +105,5 @@ function refrescar() {
   document.getElementById("p4p").innerHTML = producto4.precio;
   document.getElementById("p4d").innerHTML = producto4.descripcion;
   document.getElementById("p4c").innerHTML = producto4.cantidad;
+  document.getElementById("subtotal").innerHTML = calcTotal();
 }
