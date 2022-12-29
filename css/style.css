@@ -32,11 +32,19 @@ main {
   padding-top: 20px;
   border-top: solid 1px rgb(149, 149, 149);
 }
+.card{
+  border-radius: 12px;
+}
+.card img{
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
 .card-footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: transparent;
+  border-radius: 50px;
 }
 
 .card-footer button {
