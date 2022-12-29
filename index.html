@@ -75,15 +75,26 @@
                     alt="..."
                   />
                   <div class="card-body">
-                    <h5 class="card-title">Wraps</h5>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content. This content is a
-                      little bit longer.
-                    </p>
+                    <h5 class="card-title" id="p1n"></h5>
+                    <p class="card-text" id="p1d"></p>
+                    <p class="card-text" >$<span id="p1p"></span></p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <button
+                      id=""
+                      onclick="disminuir(producto1)"
+                      value="decrease"
+                    >
+                      -
+                    </button>
+
+                    <div class="contador_contenedor">
+                      <h1 id="p1c" value=""></h1>
+                    </div>
+
+                    <button id="add-button" onclick="aumentar(producto1)">
+                      +
+                    </button>
                   </div>
                 </div>
               </div>
@@ -97,14 +108,26 @@
                     alt="..."
                   />
                   <div class="card-body">
-                    <h5 class="card-title">Parrillada</h5>
-                    <p class="card-text">
-                      This card has supporting text below as a natural lead-in
-                      to additional content.
-                    </p>
+                    <h5 class="card-title" id="p2n"></h5>
+                    <p class="card-text" id="p2d"></p>
+                    <p class="card-text" >$<span id="p2p"></span></p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <button
+                      id=""
+                      onclick="disminuir(producto2)"
+                      value="decrease"
+                    >
+                      -
+                    </button>
+
+                    <div class="contador_contenedor">
+                      <h1 id="p2c" value=""></h1>
+                    </div>
+
+                    <button id="add-button" onclick="aumentar(producto2)">
+                      +
+                    </button>
                   </div>
                 </div>
               </div>
@@ -118,27 +141,71 @@
                     alt="..."
                   />
                   <div class="card-body">
-                    <h5 class="card-title">Combo completo</h5>
-                    <p class="card-text">
-                      This is a wider card with supporting text below as a
-                      natural lead-in to additional content. 
+                    <h5 class="card-title" id="p3n"></h5>
+                    <p class="card-text" id="p3d"></p>
+                    <p class="card-text" >$<span id="p3p"></span></p>
                   </div>
                   <div class="card-footer">
-                    <small class="text-muted">Last updated 3 mins ago</small>
+                    <button
+                      id=""
+                      onclick="disminuir(producto3)"
+                      value="decrease"
+                    >
+                      -
+                    </button>
+
+                    <div class="contador_contenedor">
+                      <h1 id="p3c" value=""></h1>
+                    </div>
+
+                    <button id="add-button" onclick="aumentar(producto3)">
+                      +
+                    </button>
                   </div>
                 </div>
               </div>
-            </div>
+              <div class="col">
+                <div class="card h-100">
+                  <img
+                    src="img/mcdonaldscol-1660251198623.webp"
+                    class="card-img-top"
+                    height="150px"
+                    width="268px"
+                    alt="..."
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title" id="p4n"></h5>
+                    <p class="card-text" id="p4d"></p>
+                    <p class="card-text" >$<span id="p4p"></span></p>
+                  </div>
+                  <div class="card-footer">
+                    <button
+                      id=""
+                      onclick="disminuir(producto4)"
+                      value="decrease"
+                    >
+                      -
+                    </button>
+
+                    <div class="contador_contenedor">
+                      <h1 id="p4c" value=""></h1>
+                    </div>
+
+                    <button id="add-button" onclick="calcTotal()">
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
           </section>
           <section class="pedido col-4">
-              <h1>Aca esta tu pedido chango</h1>
-              <p>Descuento: <br>Total: </p>
-            
-            
+            <h1>Aca esta tu pedido chango</h1>
+            <p>Descuento: <br />Total: $<span id="total"></span></p>
           </section>
         </div>
       </div>
     </main>
+    <script src="js/js.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

@@ -1,34 +1,85 @@
-body{
-    background: linear-gradient(90deg, #00d0ff, #d1a1ff);
-    background-size: 400% 400%;
-    animation: anim 10s infinite ease-in-out;
+body {
+  background: linear-gradient(90deg, #00d0ff, #d1a1ff);
+  background-size: 400% 400%;
+  animation: anim 10s infinite ease-in-out;
+  background-attachment: fixed;
+  background-position: center;
+  
 }
 @keyframes anim {
-    0%{
-        background-position: 0 50%;
-    }
-    50%{
-        background-position: 100% 50%;
-    }
-    100%{
-        background-position: 0 50%;
-    }
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
-main{
-    margin-top: 20px;
+main {
+  margin-top: 20px;
 }
-.pedido{
-    background: #F7F7F7;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 12px;
-    height: 1000px;
-    size: 100px;
+.pedido {
+  background: #f7f7f7;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 12px;
+  height: 1000px;
+  size: 100px;
 }
-.pedido p{
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: solid 1px rgb(149, 149, 149);
+.pedido p {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: solid 1px rgb(149, 149, 149);
 }
-.card-footer{
-    background: white;
+.card-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+}
+
+.card-footer button {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+  width: 30px;
+  height: 30px;
+
+  border: none;
+  border-radius: 50px;
+
+  color: #5989ff;
+  background-color: #fff;
+
+  font-weight: bold;
+
+  cursor: pointer;
+}
+.card-footer button:hover {
+  background-color: #e7e7e7;
+}
+.card-footer .contador_contenedor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-footer h1 {
+  font-size: 1.5rem;
+}
+
+.value_cont {
+  width: 100px;
+  height: 100px;
+
+  margin: 10px;
+  border-radius: 35px;
+
+  color: #fff;
+  background-color: #8774ff;
+  box-shadow: 0px 10px 10px #00000030;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
