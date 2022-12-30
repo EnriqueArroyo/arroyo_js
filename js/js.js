@@ -1,3 +1,4 @@
+//Declaro la clase para los productos
 class Producto {
   constructor(id, nombre, precio, cantidad, descripcion) {
     this.id = id;
@@ -7,6 +8,7 @@ class Producto {
     this.descripcion = descripcion;
   }
 }
+//Creo las instancias de los productos que voy a usar
 const producto1 = new Producto(
   1,
   "Wraps",
@@ -24,7 +26,7 @@ const producto2 = new Producto(
 const producto3 = new Producto(
   3,
   "Combo completo",
-  749.99,
+  750.0,
   0,
   "Esto es un combo"
 );
@@ -35,15 +37,19 @@ const producto4 = new Producto(
   0,
   "Hay que poner algo aca"
 );
+
+//Variable y constante para almacenar los valores del total y del envio
 let total = 0;
 const envio = 150;
 document.getElementById("total").innerHTML = total;
 
+//Creo un arreglo con los productos creados
 const pedido = [producto1, producto2, producto3, producto4];
 
 refrescar();
 calcTotal();
 
+//Funcion para agregar cantidad al producto
 function aumentar(producto) {
   producto.cantidad++;
   refrescar();
@@ -54,6 +60,7 @@ function aumentar(producto) {
   );
   return producto.cantidad;
 }
+//Funcion para disminuir la cantidad al producto. Cuenta con una validacion para productos que ya estan en 0
 function disminuir(producto) {
   if (producto.cantidad > 0) {
     producto.cantidad--;
@@ -70,7 +77,7 @@ function disminuir(producto) {
     );
   }
 }
-
+//Funcion que recorre el arreglo de productos y calcula el total del pedido
 function calcTotal() {
   let totalFinal = 0;
   pedido.forEach((producto) => {
@@ -85,8 +92,8 @@ function calcTotal() {
   return totalFinal;
 }
 
+//Funcion que refresca los valores al iniciar el html, aumentar y/o disminuir cantidades
 function refrescar() {
-  
   document.getElementById("p1n").innerHTML = producto1.nombre;
   document.getElementById("p1p").innerHTML = producto1.precio;
   document.getElementById("p1d").innerHTML = producto1.descripcion;
@@ -110,15 +117,17 @@ function refrescar() {
   actualizarTabla(pedido);
 }
 
+//Funcion que actualiza la tabla donde se listan los productos seleccionados por el usuario
+//Se llama al iniciar el html, al agregar y disminuir cantidades para que se refresquen los valores
 function actualizarTabla(pedido) {
-  // Seleccionamos la tabla y el cuerpo de la tabla
+
   var tabla = document.querySelector('#pedido');
   var tbody = tabla.querySelector('tbody');
 
-  // Limpiamos el cuerpo de la tabla
+  // Funcion que limpia los datos viejos en caso de que haya
   tbody.innerHTML = '';
 
-  // Recorremos el arreglo de objetos
+  // Funcion que recorre el arreglo de objetos
   pedido.forEach(function(objeto) {
     // Creamos una fila para cada objeto
     var fila = document.createElement('tr');
