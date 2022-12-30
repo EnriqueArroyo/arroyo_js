@@ -186,12 +186,10 @@
                     >
                       -
                     </button>
-
                     <div class="contador_contenedor">
                       <h1 id="p4c" value=""></h1>
                     </div>
-
-                    <button id="add-button" onclick="calcTotal()">
+                    <button id="add-button" onclick="aumentar(producto4)">
                       +
                     </button>
                   </div>
@@ -199,12 +197,31 @@
               </div>
           </section>
           <section class="pedido col-4 h-100">
-            <h1>Aca esta tu pedido chango</h1>
-            <p>Descuento: <br/>Envio: $150<br/>Subtotal: $<span id="subtotal"></span><br/>Total: $<span id="total"></span></p>
+            <h1>Su pedido</h1>
+            <table id="pedido">
+              <thead>
+                <tr>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Precio unit.</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
+            <p>Envio: $150<br/>Subtotal: $<span id="subtotal"></span><br/>Total: $<span id="total"></span></p>
+            <div class="d-grid gap-2 col-4 mx-auto">
+              <button class="btn btn-primary" type="button">Comprar</button>
+            </div>
           </section>
         </div>
       </div>
     </main>
+    <footer>
+      
+    </footer>
     <script src="js/js.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
