@@ -20,17 +20,27 @@ body {
 main {
   margin-top: 20px;
 }
+.productos{
+  margin-bottom: 20px;
+}
+.d-flex{
+  display: flex;
+  justify-content: space-between;
+  justify-content: center;
+}
 .pedido {
   background: #f7f7f7;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 12px;
-  height: 1000px;
-  size: 100px;
+  
 }
 .pedido p {
   margin-top: 50px;
   padding-top: 20px;
   border-top: solid 1px rgb(149, 149, 149);
+}
+.pedido th{
+  padding-right: 25px;
 }
 .card{
   border-radius: 12px;
@@ -91,6 +101,4 @@ main {
   justify-content: center;
   align-items: center;
 }
-#pedido {
-  width: 100%;
-}
+
