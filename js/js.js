@@ -1,11 +1,12 @@
 //Declaro la clase para los productos
 class Producto {
-  constructor(id, nombre, precio, cantidad, descripcion) {
+  constructor(id, nombre, precio, cantidad, descripcion, imagen) {
     this.id = id;
     this.nombre = nombre;
     this.precio = precio;
     this.cantidad = cantidad;
     this.descripcion = descripcion;
+    this.imagen = imagen;
   }
 }
 //Creo las instancias de los productos que voy a usar
@@ -14,29 +15,36 @@ const producto1 = new Producto(
   "Wraps",
   350.0,
   0,
-  "Los Wraps son muy ricos y nutritivos"
+  "Los Wraps son muy ricos y nutritivos",
+  "018ab5a2-6a2a-418c-8603-ee8e32169f81-1667924223374.webp"
 );
 const producto2 = new Producto(
   2,
   "Parrillada",
   2500.0,
   0,
-  "Parrillada completa para una persona"
+  "Parrillada completa para una persona",
+  "lamalbequeria-1661802104650.webp"
 );
 const producto3 = new Producto(
   3,
   "Combo completo",
   750.0,
   0,
-  "Esto es un combo"
+  "Esto es un combo",
+  "mcdonaldscol-1660251198623.webp"
 );
 const producto4 = new Producto(
   4,
   "Esto es una copia",
   150.0,
   0,
-  "Hay que poner algo aca"
+  "Hay que poner algo aca",
+  "mcdonaldscol-1660251198623.webp"
 );
+
+
+
 
 //Variable y constante para almacenar los valores del total y del envio
 let total = 0;
@@ -45,6 +53,45 @@ document.getElementById("total").innerHTML = total;
 
 //Creo un arreglo con los productos creados
 const pedido = [producto1, producto2, producto3, producto4];
+
+let cardContainer = document.getElementById("card_container");
+pedido.forEach(producto => {
+  cardContainer.innerHTML += 
+  `<div class="col">
+  <div class="card h-100">
+    <img
+      src="img/${producto.imagen}"
+      class="card-img-top"
+      height="150px"
+      width="268px"
+      alt="..."
+    />
+    <div class="card-body">
+      <h5 class="card-title">${producto.nombre}</h5>
+      <p class="card-text">${producto.descripcion}</p>
+      <p class="card-text" >$${producto.precio}</p>
+    </div>
+    <div class="card-footer">
+      <button
+        id=""
+        onclick="disminuir(producto${producto.id})"
+        value="decrease"
+      >
+        -
+      </button>
+
+      <div class="contador_contenedor">
+        <h1 id="p${producto.id}c" value="">${producto.cantidad}</h1>
+      </div>
+
+      <button id="add-button" onclick="aumentar(producto${producto.id})">
+        +
+      </button>
+    </div>
+  </div>
+</div>`
+});
+
 
 refrescar();
 calcTotal();
@@ -94,24 +141,16 @@ function calcTotal() {
 
 //Funcion que refresca los valores al iniciar el html, aumentar y/o disminuir cantidades
 function refrescar() {
-  document.getElementById("p1n").innerHTML = producto1.nombre;
-  document.getElementById("p1p").innerHTML = producto1.precio;
-  document.getElementById("p1d").innerHTML = producto1.descripcion;
+  
   document.getElementById("p1c").innerHTML = producto1.cantidad;
 
-  document.getElementById("p2n").innerHTML = producto2.nombre;
-  document.getElementById("p2p").innerHTML = producto2.precio;
-  document.getElementById("p2d").innerHTML = producto2.descripcion;
+  
   document.getElementById("p2c").innerHTML = producto2.cantidad;
 
-  document.getElementById("p3n").innerHTML = producto3.nombre;
-  document.getElementById("p3p").innerHTML = producto3.precio;
-  document.getElementById("p3d").innerHTML = producto3.descripcion;
+  
   document.getElementById("p3c").innerHTML = producto3.cantidad;
 
-  document.getElementById("p4n").innerHTML = producto4.nombre;
-  document.getElementById("p4p").innerHTML = producto4.precio;
-  document.getElementById("p4d").innerHTML = producto4.descripcion;
+  
   document.getElementById("p4c").innerHTML = producto4.cantidad;
   document.getElementById("subtotal").innerHTML = calcTotal();
   actualizarTabla(pedido);
