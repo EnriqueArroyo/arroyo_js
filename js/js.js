@@ -53,8 +53,10 @@ document.getElementById("total").innerHTML = total;
 
 //Creo un arreglo con los productos creados
 const pedido = [producto1, producto2, producto3, producto4];
-
-let cardContainer = document.getElementById("card_container");
+refresh();
+function refresh(){
+  let cardContainer = document.getElementById("card_container");
+  cardContainer.innerHTML = ``;
 pedido.forEach(producto => {
   cardContainer.innerHTML += 
   `<div class="col">
@@ -74,32 +76,35 @@ pedido.forEach(producto => {
     <div class="card-footer">
       <button
         id=""
-        onclick="disminuir(producto${producto.id})"
+        onclick="disminuir(${pedido.indexOf(producto)})"
         value="decrease"
       >
         -
       </button>
 
       <div class="contador_contenedor">
-        <h1 id="p${producto.id}c" value="">${producto.cantidad}</h1>
+        <h1 id="${pedido.indexOf(producto)}" value="">${producto.cantidad}</h1>
       </div>
 
-      <button id="add-button" onclick="aumentar(producto${producto.id})">
+      <button id="add-button" onclick="aumentar(${pedido.indexOf(producto)})">
         +
       </button>
     </div>
   </div>
 </div>`
 });
+}
 
 
-refrescar();
+
+
 calcTotal();
 
 //Funcion para agregar cantidad al producto
-function aumentar(producto) {
+function aumentar(index) {
+  let producto = pedido[index];
   producto.cantidad++;
-  refrescar();
+  refrescar(index);
   calcTotal();
   actualizarTabla(pedido);
   console.log(
@@ -108,10 +113,11 @@ function aumentar(producto) {
   return producto.cantidad;
 }
 //Funcion para disminuir la cantidad al producto. Cuenta con una validacion para productos que ya estan en 0
-function disminuir(producto) {
+function disminuir(index) {
+  let producto = pedido[index];
   if (producto.cantidad > 0) {
     producto.cantidad--;
-    refrescar();
+    refrescar(index);
     console.log(
       `quitaste un ${producto.nombre} y ahora hay${producto.cantidad} en el pedido`
     );
@@ -140,18 +146,10 @@ function calcTotal() {
 }
 
 //Funcion que refresca los valores al iniciar el html, aumentar y/o disminuir cantidades
-function refrescar() {
-  
-  document.getElementById("p1c").innerHTML = producto1.cantidad;
-
-  
-  document.getElementById("p2c").innerHTML = producto2.cantidad;
-
-  
-  document.getElementById("p3c").innerHTML = producto3.cantidad;
-
-  
-  document.getElementById("p4c").innerHTML = producto4.cantidad;
+function refrescar(index) {
+  let producto = pedido[index];
+  document.getElementById(index).innerHTML = producto.cantidad;
+  document.getElementById("subtotal").innerHTML = calcTotal();
   document.getElementById("subtotal").innerHTML = calcTotal();
   actualizarTabla(pedido);
 }
@@ -180,4 +178,33 @@ function actualizarTabla(pedido) {
     // Agregamos la fila a la tabla
     tbody.appendChild(fila);
   });
+}
+
+// Manejo de formularios de ventana modal CREAR PRODUCTOS
+
+//Capturamos btn
+let crearProductoBtn = document.getElementById("crear-productos-btn");
+//Adjunto el evento
+crearProductoBtn.addEventListener("click", () =>{cargarProducto(pedido)});
+
+function cargarProducto(array){
+  let id_max = 0;
+  array.forEach(producto => {
+    
+    if (producto.id > id_max){
+      id_max = producto.id;
+      console.log("El id maximo es =" + id_max)
+    }
+  });
+
+  let nombre_input = document.getElementById("nombre-input");
+  let descripcion_input = document.getElementById("descripcion-input");
+  let precio_input = document.getElementById("precio-input");
+  
+  
+  const producto= new Producto(id_max+1, nombre_input.value, precio_input.value , 0, descripcion_input.value, "sin-foto.jpg")
+  array.push(producto)
+  console.log(pedido)
+  console.log("hiciste clic")
+  refresh();
 }
