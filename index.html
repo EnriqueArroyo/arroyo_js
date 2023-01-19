@@ -94,7 +94,7 @@
               <tbody></tbody>
             </table>
             <p>
-              Envio: $150<br />Subtotal: $<span id="subtotal"></span
+              Envio: $150<br />Subtotal: $<span id="subtotal">0</span
               ><br />Total: $<span id="total"></span>
             </p>
             <div class="d-grid gap-2 col-4 mx-auto">
@@ -132,14 +132,14 @@
               <div class="mb-3">
 
                 <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="exampleInputEmail1">
+                <input type="text" class="form-control" id="nombre-input" name="nombre">
                 <br>
                 <label for="exampleInputEmail1" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" id="exampleInputEmail1">
+                <input type="text" class="form-control" id="descripcion-input" name="descripcion">
                 <br>
                 <label for="exampleInputEmail1" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="exampleInputEmail1">
-                
+                <input type="number" class="form-control" id="precio-input" name="precio">
+        
                 <div id="emailHelp" class="form-text">Podria borrar esto si quisiera</div>
               </div>
               <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
@@ -153,7 +153,7 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <button class="btn btn-success" data-bs-dismiss="modal" id="crear-productos-btn">Crear</button>
           </div>
         </div>
       </div>
