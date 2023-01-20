@@ -97,10 +97,11 @@ pedido.forEach(producto => {
 
 //Select del Modificar
 function listarProductos(){
-  let selectPrpduct = document.getElementById("selectProduct");
-  selectPrpduct.innerHTML = "";
+  let selectProduct = document.getElementById("selectProduct");
+  selectProduct.innerHTML = `<option value="">Seleccione un producto</option>`;
+  
   pedido.forEach(producto => {
-    selectPrpduct.innerHTML += 
+    selectProduct.innerHTML += 
     `<option value="${producto.id}">${producto.nombre}</option>`
   });
 }
@@ -213,6 +214,54 @@ function cargarProducto(array){
   array.push(producto)
   console.log(pedido)
   console.log("hiciste clic")
+  refresh();
+  document.getElementById("formulario").reset();
+}
+
+// Modificar producto 
+const select = document.getElementById("selectProduct");
+const nombre_input = document.getElementById("nombre-inputm");
+const descripcion_input = document.getElementById("descripcion-inputm");
+let precio_input = document.getElementById("precio-inputm");
+
+select.addEventListener("change", function(){
+  const selectedProductId = select.value;
+  const selectedProduct = findProductById(selectedProductId);
+  if (selectedProduct != null){
+    nombre_input.value = selectedProduct.nombre;
+    descripcion_input.value = selectedProduct.descripcion;
+    precio_input.value = selectedProduct.precio;
+  }
+});
+
+function findProductById(productId) {
+  for (let i = 0; i < pedido.length; i++) {
+    if (pedido[i].id == productId) {
+      return pedido[i];
+    }
+  }
+  nombre_input.value = "";
+  descripcion_input.value = "";
+  precio_input.value = "";
+  return null;
+}
+
+let modificarProductoBtn = document.getElementById("modificar-productos-btn");
+modificarProductoBtn.addEventListener("click", () =>{modificarProducto(select.value)});
+
+function modificarProducto(productId){
+  
+  pedido.forEach(producto => {
+    
+    if (producto.id == productId){
+      producto.nombre = document.getElementById("nombre-inputm").value;
+      producto.descripcion = document.getElementById("descripcion-inputm").value;
+      producto.precio = document.getElementById("precio-inputm").value;
+    }
+  });
+
+  console.log("modificaste un producto")
+  console.log(pedido)
   refresh();
   document.getElementById("formulario").reset();
 }
