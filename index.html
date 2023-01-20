@@ -52,9 +52,9 @@
                   class="nav-link"
                   data-bs-toggle="modal"
                   data-bs-target="#modificar-producto"
-                  onclick="listarProductos()"
+                  onclick="listarProductos()" 
                   >Modificar productos</a
-                >
+                > <!--Debo de pasar el OnClick a un eventListen-->
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Proximamente</a>
@@ -162,6 +162,10 @@
     <!-- FIN Modal Crear Producto Nuevo-->
 
     <!-- Modal Modificar Producto-->
+
+    <!-- Tengo que:
+    *Con el botón cancel o X para salir limpie el formulario
+    -->
     <div
       class="modal fade"
       id="modificar-producto"
@@ -188,14 +192,15 @@
                 <label for="exampleInputEmail1" class="form-label">Elige el producto a modificar</label>
                 <select class="form-select" aria-label="Default select example" id="selectProduct">
                 </select>
+                <br>
                 <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre-input" name="nombre">
+                <input type="text" class="form-control" id="nombre-inputm" name="nombre">
                 <br>
                 <label for="exampleInputEmail1" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" id="descripcion-input" name="descripcion">
+                <input type="text" class="form-control" id="descripcion-inputm" name="descripcion">
                 <br>
                 <label for="exampleInputEmail1" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="precio-input" name="precio">
+                <input type="number" class="form-control" id="precio-inputm" name="precio">
         
                 <div id="emailHelp" class="form-text">Podria borrar esto si quisiera</div>
               </div>
@@ -210,7 +215,7 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <button class="btn btn-success" data-bs-dismiss="modal" id="modificar-productos-btn">Modificar</button>
           </div>
         </div>
       </div>
