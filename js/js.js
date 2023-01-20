@@ -207,4 +207,5 @@ function cargarProducto(array){
   console.log(pedido)
   console.log("hiciste clic")
   refresh();
+  document.getElementById("formulario").reset();
 }
