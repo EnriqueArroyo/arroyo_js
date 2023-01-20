@@ -95,8 +95,15 @@ pedido.forEach(producto => {
 });
 }
 
-
-
+//Select del Modificar
+function listarProductos(){
+  let selectPrpduct = document.getElementById("selectProduct");
+  selectPrpduct.innerHTML = "";
+  pedido.forEach(producto => {
+    selectPrpduct.innerHTML += 
+    `<option value="${producto.id}">${producto.nombre}</option>`
+  });
+}
 
 calcTotal();
 

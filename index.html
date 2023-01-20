@@ -52,6 +52,7 @@
                   class="nav-link"
                   data-bs-toggle="modal"
                   data-bs-target="#modificar-producto"
+                  onclick="listarProductos()"
                   >Modificar productos</a
                 >
               </li>
@@ -173,7 +174,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar producto</h5>
             <button
               type="button"
               class="btn-close"
@@ -181,7 +182,26 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <form id="formulario">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Elige el producto a modificar</label>
+                <select class="form-select" aria-label="Default select example" id="selectProduct">
+                </select>
+                <label for="exampleInputEmail1" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre-input" name="nombre">
+                <br>
+                <label for="exampleInputEmail1" class="form-label">Descripcion</label>
+                <input type="text" class="form-control" id="descripcion-input" name="descripcion">
+                <br>
+                <label for="exampleInputEmail1" class="form-label">Precio</label>
+                <input type="number" class="form-control" id="precio-input" name="precio">
+        
+                <div id="emailHelp" class="form-text">Podria borrar esto si quisiera</div>
+              </div>
+              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+            </form>
+          </div>
           <div class="modal-footer">
             <button
               type="button"
