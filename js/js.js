@@ -105,6 +105,16 @@ function listarProductos(){
     `<option value="${producto.id}">${producto.nombre}</option>`
   });
 }
+//Select del Eliminar
+function listarProductosE(){
+  let selectProductE = document.getElementById("selectProductE");
+  selectProductE.innerHTML = `<option value="">Seleccione un producto</option>`;
+  
+  pedido.forEach(producto => {
+    selectProductE.innerHTML += 
+    `<option value="${producto.id}">${producto.nombre}</option>`
+  });
+}
 
 calcTotal();
 
@@ -264,4 +274,32 @@ function modificarProducto(productId){
   console.log(pedido)
   refresh();
   document.getElementById("formulario").reset();
+}
+
+//Eliminar producto ---------------------------------------------------------------------v
+
+//Capturamos btn
+let eliminarProductoBtn = document.getElementById("eliminar-productos-btn");
+
+const selectE = document.getElementById("selectProductE");
+selectE.addEventListener("change", function(){
+  const selectedProductId = selectE.value;
+});
+
+//Adjunto el evento
+eliminarProductoBtn.addEventListener("click", () =>{eliminarProducto(selectE.value)});
+
+function eliminarProducto(productId){
+  let indice = 0;
+  pedido.forEach(producto => {
+    if (producto.id == productId){
+      pedido.splice(indice, 1);
+      console.log("eliminaste un producto");
+      console.log(pedido);
+    }
+  indice++;
+  });
+  
+  refresh();
+  
 }

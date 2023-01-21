@@ -15,15 +15,25 @@
     <!--CSS -->
     <link rel="stylesheet" href="css\style.css" />
     <!--Fav Icon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/Arrow_RetroBlue_Gold.png">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="img/Arrow_RetroBlue_Gold.png"
+    />
     <title>Tu tienda Arrow</title>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-        
-          <a class="navbar-brand" href="#"><img id="logo-arrow" class="navbar-brand" src="img/Arrow_RetroBlue_Gold.png" alt="logo" height="35rem"></a>
+          <a class="navbar-brand" href="#"
+            ><img
+              id="logo-arrow"
+              class="navbar-brand"
+              src="img/Arrow_RetroBlue_Gold.png"
+              alt="logo"
+              height="35rem"
+          /></a>
           <button
             class="navbar-toggler"
             type="button"
@@ -52,12 +62,20 @@
                   class="nav-link"
                   data-bs-toggle="modal"
                   data-bs-target="#modificar-producto"
-                  onclick="listarProductos()" 
+                  onclick="listarProductos()"
                   >Modificar productos</a
-                > <!--Debo de pasar el OnClick a un eventListen-->
+                >
+                <!--Debo de pasar el OnClick a un eventListen-->
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Proximamente</a>
+                <a
+                  href="#"
+                  class="nav-link"
+                  data-bs-toggle="modal"
+                  data-bs-target="#eliminar-producto"
+                  onclick="listarProductosE()"
+                  >Eliminar productos</a
+                >
               </li>
               <li class="nav-item">
                 <a
@@ -106,7 +124,6 @@
       </div>
     </main>
 
-
     <!-- Modal Crear Producto Nuevo-->
     <div
       class="modal fade"
@@ -131,19 +148,40 @@
           <div class="modal-body">
             <form id="formulario">
               <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Nombre</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre-input"
+                  name="nombre"
+                />
+                <br />
+                <label for="exampleInputEmail1" class="form-label"
+                  >Descripcion</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="descripcion-input"
+                  name="descripcion"
+                />
+                <br />
+                <label for="exampleInputEmail1" class="form-label"
+                  >Precio</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="precio-input"
+                  name="precio"
+                />
 
-                <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre-input" name="nombre">
-                <br>
-                <label for="exampleInputEmail1" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" id="descripcion-input" name="descripcion">
-                <br>
-                <label for="exampleInputEmail1" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="precio-input" name="precio">
-        
-                <div id="emailHelp" class="form-text">Podria borrar esto si quisiera</div>
+                <div id="emailHelp" class="form-text">
+                  Podria borrar esto si quisiera
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
             </form>
           </div>
           <div class="modal-footer">
@@ -152,19 +190,24 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+              Cancelar
             </button>
-            <button class="btn btn-success" data-bs-dismiss="modal" id="crear-productos-btn">Crear</button>
+            <button
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              id="crear-productos-btn"
+            >
+              Crear
+            </button>
           </div>
         </div>
       </div>
     </div>
     <!-- FIN Modal Crear Producto Nuevo-->
 
-    <!-- Modal Modificar Producto-->
-
-    <!-- Tengo que:
-    *Con el botón cancel o X para salir limpie el formulario
+    <!-- Modal Modificar Producto
+     Tengo que:
+     *Con el botón cancel o X para salir limpie el formulario
     -->
     <div
       class="modal fade"
@@ -178,7 +221,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modificar producto</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Modificar producto
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -189,22 +234,49 @@
           <div class="modal-body">
             <form id="formulario">
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Elige el producto a modificar</label>
-                <select class="form-select" aria-label="Default select example" id="selectProduct">
-                </select>
-                <br>
-                <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre-inputm" name="nombre">
-                <br>
-                <label for="exampleInputEmail1" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" id="descripcion-inputm" name="descripcion">
-                <br>
-                <label for="exampleInputEmail1" class="form-label">Precio</label>
-                <input type="number" class="form-control" id="precio-inputm" name="precio">
-        
-                <div id="emailHelp" class="form-text">Podria borrar esto si quisiera</div>
+                <label for="exampleInputEmail1" class="form-label"
+                  >Elige el producto a modificar</label
+                >
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="selectProduct"
+                ></select>
+                <br />
+                <label for="exampleInputEmail1" class="form-label"
+                  >Nombre</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre-inputm"
+                  name="nombre"
+                />
+                <br />
+                <label for="exampleInputEmail1" class="form-label"
+                  >Descripcion</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="descripcion-inputm"
+                  name="descripcion"
+                />
+                <br />
+                <label for="exampleInputEmail1" class="form-label"
+                  >Precio</label
+                >
+                <input
+                  type="number"
+                  class="form-control"
+                  id="precio-inputm"
+                  name="precio"
+                />
+
+                <div id="emailHelp" class="form-text">
+                  Podria borrar esto si quisiera
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
             </form>
           </div>
           <div class="modal-footer">
@@ -213,15 +285,81 @@
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+              Cancelar
             </button>
-            <button class="btn btn-success" data-bs-dismiss="modal" id="modificar-productos-btn">Modificar</button>
+            <button
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              id="modificar-productos-btn"
+            >
+              Modificar
+            </button>
           </div>
         </div>
       </div>
     </div>
+    <!-- FIN Modal Modificar Producto-->
 
-     <!-- FIN Modal Modificar Producto-->
+    <!-- Modal Eliminar Producto-->
+    <div
+      class="modal fade"
+      id="eliminar-producto"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">
+              Eliminar producto
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="formulario">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label"
+                  >Elige el producto a modificar</label
+                >
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  id="selectProductE"
+                >
+              
+              
+              </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              id="eliminar-productos-btn"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIN Modal Eliminar Producto-->
 
     <footer></footer>
     <script src="js/js.js"></script>
