@@ -1,11 +1,14 @@
 body {
-  background: linear-gradient(90deg, #00d0ff, #d1a1ff);
+  background: linear-gradient(80deg, #fff0a7, #ffc45f, #fff0a7, #ffc45f);
   background-size: 400% 400%;
-  animation: anim 10s infinite ease-in-out;
+  animation: anim 15s infinite ease-in-out;
   background-attachment: fixed;
   background-position: center;
   
 }
+
+
+
 @keyframes anim {
   0% {
     background-position: 0 50%;
