@@ -31,16 +31,16 @@ const producto3 = new Producto(
   "Combo completo",
   750.0,
   0,
-  "Esto es un combo",
+  "Hamburguesa con bebida + fritas",
   "combo-mc.webp"
 );
 const producto4 = new Producto(
   4,
-  "Esto es una copia",
+  "Medialunas",
   150.0,
   0,
-  "Hay que poner algo aca",
-  "combo-mc.webp"
+  "Medialunas tipicas",
+  "medialunas.png"
 );
 
 //Variable y constante para almacenar los valores del total y del envio
@@ -50,6 +50,8 @@ document.getElementById("total").innerHTML = total;
 
 //Creo un arreglo con los productos creados
 const pedido = [producto1, producto2, producto3, producto4];
+
+// Carga los productos del arreglo de pedido en pantalla
 refresh();
 function refresh() {
   let cardContainer = document.getElementById("card_container");
@@ -91,7 +93,7 @@ function refresh() {
   });
 }
 
-//Select del Modificar
+//Select del Modificar | Lista los productos creados en el selector en la seccion modificar producto
 function listarProductos() {
   let selectProduct = document.getElementById("selectProduct");
   selectProduct.innerHTML = `<option value="">Seleccione un producto</option>`;
@@ -100,7 +102,7 @@ function listarProductos() {
     selectProduct.innerHTML += `<option value="${producto.id}">${producto.nombre}</option>`;
   });
 }
-//Select del Eliminar
+//Select del Eliminar | Lista los productos creados en el selector en la seccion eliminar producto
 function listarProductosE() {
   let selectProductE = document.getElementById("selectProductE");
   selectProductE.innerHTML = `<option value="">Seleccione un producto</option>`;
@@ -110,6 +112,7 @@ function listarProductosE() {
   });
 }
 
+//Calcula el total del pedido mas el envio
 calcTotal();
 
 //Funcion para agregar cantidad al producto
@@ -199,16 +202,16 @@ function actualizarTabla(pedido) {
   });
 }
 
-// Manejo de formularios de ventana modal CREAR PRODUCTOS
+// Manejo de formularios de ventana modal
+
+//Crear producto ------------------------------------------------------------------- v
 //Capturamos btn
 let crearProductoBtn = document.getElementById("crear-productos-btn");
 //Adjunto el evento
 crearProductoBtn.addEventListener("click", () => {
   cargarProducto(pedido);
 });
-
 function cargarProducto(array) {
-  
   let id_max = 0;
   array.forEach((producto) => {
     if (producto.id > id_max) {
@@ -216,18 +219,17 @@ function cargarProducto(array) {
       console.log("El id maximo es =" + id_max);
     }
   });
-
   let nombre_input = document.getElementById("nombre-input");
   let descripcion_input = document.getElementById("descripcion-input");
   let precio_input = document.getElementById("precio-input");
-  let imagen_input = document.getElementById("listadoImgCrear"); 
+  let imagen_input = document.getElementById("listadoImgCrear");
   const producto = new Producto(
     id_max + 1,
     nombre_input.value,
     precio_input.value,
     0,
     descripcion_input.value,
-    findImageMByName(imagen_input.value).path
+    buscarImagenPorNombre(imagen_input.value).ruta
   );
   array.push(producto);
   console.log(pedido);
@@ -244,11 +246,11 @@ let precio_input = document.getElementById("precio-inputm");
 let img_input = document.getElementById("crearImgM");
 let select_input = document.getElementById("listadoImgModificar");
 
-
+//Detectamos los cambios del selector para actualizar los formularios en pantalla y la imagen correspondiente al producto seleccionado
 select.addEventListener("change", function () {
   const selectedProductId = select.value;
-  const selectedProduct = findProductById(selectedProductId);
-  console.log(selectedProduct.imagen)
+  const selectedProduct = buscarProductoPorID(selectedProductId);
+  console.log(selectedProduct.imagen);
   if (selectedProduct != null) {
     nombre_input.value = selectedProduct.nombre;
     descripcion_input.value = selectedProduct.descripcion;
@@ -257,38 +259,18 @@ select.addEventListener("change", function () {
     src="img/${selectedProduct.imagen}"
     class="img-fluid rounded float-right img-thumbnail"
     alt=""
-  />`
-  
-  document.getElementById("listadoImgModificar").value = findImagenByPath(selectedProduct.imagen);
-  console.log(document.getElementById("listadoImgModificar").value)
-  console.log(findImagenByPath(selectedProduct.imagen))
+  />`;
+    document.getElementById("listadoImgModificar").value = buscarImagenPorRuta(
+      selectedProduct.imagen
+    );
   }
 });
-
-function findImagenByPath(img){
-  let imagen = imagenes.find((imagen) => imagen.path == img)
-  if(imagen){
-      return imagen.name;
-  }
-}
-
-function findProductById(productId) {
-  for (let i = 0; i < pedido.length; i++) {
-    if (pedido[i].id == productId) {
-      return pedido[i];
-    }
-  }
-  nombre_input.value = "";
-  descripcion_input.value = "";
-  precio_input.value = "";
-  return null;
-}
-
 let modificarProductoBtn = document.getElementById("modificar-productos-btn");
 modificarProductoBtn.addEventListener("click", () => {
   modificarProducto(select.value);
 });
 
+//Modificamos el producto según su ID
 function modificarProducto(productId) {
   pedido.forEach((producto) => {
     if (producto.id == productId) {
@@ -296,10 +278,11 @@ function modificarProducto(productId) {
       producto.descripcion =
         document.getElementById("descripcion-inputm").value;
       producto.precio = document.getElementById("precio-inputm").value;
-      producto.imagen = findImageByName(document.getElementById("listadoImgModificar").value).path;
+      producto.imagen = buscarImagenPorNombre(
+        document.getElementById("listadoImgModificar").value
+      ).ruta;
     }
   });
-
   console.log("modificaste un producto");
   console.log(pedido);
   refresh();
@@ -317,17 +300,18 @@ function modificarProducto(productId) {
 
 //Capturamos btn
 let eliminarProductoBtn = document.getElementById("eliminar-productos-btn");
-
+//Levantamos el producto seleccionado para obtener su ID desde su Value en el Select
 const selectE = document.getElementById("selectProductE");
 selectE.addEventListener("change", function () {
   const selectedProductId = selectE.value;
 });
 
-//Adjunto el evento
+//Adjunto el evento para eliminar el producto seleccionado
 eliminarProductoBtn.addEventListener("click", () => {
   eliminarProducto(selectE.value);
 });
 
+//Eliminamos el producto según su ID
 function eliminarProducto(productId) {
   let indice = 0;
   pedido.forEach((producto) => {
@@ -338,105 +322,113 @@ function eliminarProducto(productId) {
     }
     indice++;
   });
-
   actualizarTabla(pedido);
-
   document.getElementById("subtotal").innerHTML = calcTotal();
   calcTotal();
   refresh();
 }
 
-//imagenes
-
+//Arreglo de objetos imagen para guardar su nombre y ruta
 let imagenes = [
-  { name: "Sin foto", path: "sin-foto.jpg" },
-  { name: "Agua", path: "agua.png" },
-  { name: "Alfajor de Maizena", path: "alfajor-maizena.png" },
-  { name: "Arepa de carne", path: "arepa-carne.png" },
-  { name: "Arepa", path: "arepa.png" },
-  { name: "Baos", path: "baos.png" },
-  { name: "Canelones", path: "canelones.png" },
-  { name: "Capuchino", path: "capuchino.png" },
-  { name: "Chorizo a la parrilla", path: "chorizo.png" },
-  { name: "Churro de Dulce de leche", path: "churro-ddl.png" },
-  { name: "Churro de Nutella", path: "churro-nutella.png" },
-  { name: "Crepa", path: "crepa.png" },
-  { name: "Croisant de Salmón", path: "croisant-salmon.png" },
-  { name: "Donas rellenas", path: "donas.png" },
-  { name: "Dumplings", path: "dumplings.png" },
-  { name: "Empanadas", path: "empanadas.png" },
-  { name: "Café Expreso", path: "expresso.png" },
-  { name: "Fideos Penne al Pesto", path: "fideos-penne-al-pesto.png" },
-  { name: "Medialunas de jamón y queso", path: "medialuna-jyq.png" },
-  { name: "Medialunas", path: "medialunas.png" },
-  { name: "Milanesa con Pure", path: "mila-con-pure.png" },
-  { name: "Milanesa napolitana", path: "milanesa-napolitana.png" },
-  { name: "Ñoquis", path: "noquis.png" },
-  { name: "Papas Fritas", path: "papas-fritas.png" },
-  { name: "Pizza", path: "pizza.png" },
-  { name: "Ensalada de sushi", path: "poke-salads.png" },
-  { name: "Postre de chocolate", path: "postre-choco.png" },
-  { name: "Provoleta a la plancha", path: "provoleta.png" },
-  { name: "Sorrentinos", path: "sorrentinos.png" },
-  { name: "Sushi rolls 10pz", path: "sushi-rolls.png" },
-  { name: "Sushi rolls 23pz", path: "sushi-rolls-promo.png" },
-  { name: "Tequeños", path: "tequeños.png" },
-  { name: "Tostado", path: "tostado.png" },
-  { name: "Wraps", path: "wraps.png" },
-  { name: "Parrillada", path: "parrillada.png" },
-  { name: "Combo MC Donalds", path: "combo-mc.webp" },
+  { nombre: "Sin foto", ruta: "sin-foto.jpg" },
+  { nombre: "Agua", ruta: "agua.png" },
+  { nombre: "Alfajor de Maizena", ruta: "alfajor-maizena.png" },
+  { nombre: "Arepa de carne", ruta: "arepa-carne.png" },
+  { nombre: "Arepa", ruta: "arepa.png" },
+  { nombre: "Baos", ruta: "baos.png" },
+  { nombre: "Canelones", ruta: "canelones.png" },
+  { nombre: "Capuchino", ruta: "capuchino.png" },
+  { nombre: "Chorizo a la parrilla", ruta: "chorizo.png" },
+  { nombre: "Churro de Dulce de leche", ruta: "churro-ddl.png" },
+  { nombre: "Churro de Nutella", ruta: "churro-nutella.png" },
+  { nombre: "Crepa", ruta: "crepa.png" },
+  { nombre: "Croisant de Salmón", ruta: "croisant-salmon.png" },
+  { nombre: "Donas rellenas", ruta: "donas.png" },
+  { nombre: "Dumplings", ruta: "dumplings.png" },
+  { nombre: "Empanadas", ruta: "empanadas.png" },
+  { nombre: "Café Expreso", ruta: "expresso.png" },
+  { nombre: "Fideos Penne al Pesto", ruta: "fideos-penne-al-pesto.png" },
+  { nombre: "Medialunas de jamón y queso", ruta: "medialuna-jyq.png" },
+  { nombre: "Medialunas", ruta: "medialunas.png" },
+  { nombre: "Milanesa con Pure", ruta: "mila-con-pure.png" },
+  { nombre: "Milanesa napolitana", ruta: "milanesa-napolitana.png" },
+  { nombre: "Ñoquis", ruta: "noquis.png" },
+  { nombre: "Papas Fritas", ruta: "papas-fritas.png" },
+  { nombre: "Pizza", ruta: "pizza.png" },
+  { nombre: "Ensalada de sushi", ruta: "poke-salads.png" },
+  { nombre: "Postre de chocolate", ruta: "postre-choco.png" },
+  { nombre: "Provoleta a la plancha", ruta: "provoleta.png" },
+  { nombre: "Sorrentinos", ruta: "sorrentinos.png" },
+  { nombre: "Sushi rolls 10pz", ruta: "sushi-rolls.png" },
+  { nombre: "Sushi rolls 23pz", ruta: "sushi-rolls-promo.png" },
+  { nombre: "Tequeños", ruta: "tequeños.png" },
+  { nombre: "Tostado", ruta: "tostado.png" },
+  { nombre: "Wraps", ruta: "wraps.png" },
+  { nombre: "Parrillada", ruta: "parrillada.png" },
+  { nombre: "Combo MC Donalds", ruta: "combo-mc.webp" },
 ];
 
+//Cargamos los Option y el Value del Select en la opcion de crear producto pasandole como dato el arreglo de imagenes
 let selectImg = document.getElementById("listadoImgCrear");
 imagenes.forEach(function (imagenes) {
-  selectImg.innerHTML += `<option value="${imagenes.name}">${imagenes.name}</option>`;
+  selectImg.innerHTML += `<option value="${imagenes.nombre}">${imagenes.nombre}</option>`;
 });
-
+//Detectamos los cambios en el select para actualizar la IMG que se visualiza segun el value del select
 selectImg.addEventListener("change", function () {
   let crearImg = document.getElementById("crearImg");
-  const selectedImagenName = selectImg.value;
-  const selectedImagen = findImageByName(selectedImagenName);
+  const selectedImagennombre = selectImg.value;
+  const selectedImagen = buscarImagenPorNombre(selectedImagennombre);
   crearImg.innerHTML = `<img
-  src="img/${selectedImagen.path}"
+  src="img/${selectedImagen.ruta}"
   class="img-fluid rounded float-right img-thumbnail"
   alt=""
 />`;
 });
 
-function findImageByName(name) {
-  for (let i = 0; i < imagenes.length; i++) {
-    if (imagenes[i].name == name) {
-      return imagenes[i];
-    }
-  }
-  return null;
-}
-
-
+//Cargamos los Option y el Value del Select en la opcion de modificar producto pasandole como dato el arreglo de imagenes
 let selectImgM = document.getElementById("listadoImgModificar");
 imagenes.forEach(function (imagenes) {
-  selectImgM.innerHTML += `<option value="${imagenes.name}">${imagenes.name}</option>`;
+  selectImgM.innerHTML += `<option value="${imagenes.nombre}">${imagenes.nombre}</option>`;
 });
-
+//Detectamos los cambios en el select para actualizar la IMG que se visualiza segun el value del select
 selectImgM.addEventListener("change", function () {
   let crearImgM = document.getElementById("crearImgM");
-  const selectedImagenNameM = selectImgM.value;
-  const selectedImagenM = findImageMByName(selectedImagenNameM);
+  const selectedImagennombreM = selectImgM.value;
+  const selectedImagenM = buscarImagenPorNombre(selectedImagennombreM);
   crearImgM.innerHTML = `<img
-  src="img/${selectedImagenM.path}"
+  src="img/${selectedImagenM.ruta}"
   class="img-fluid rounded float-right img-thumbnail"
   alt=""
 />`;
 });
 
-function findImageMByName(name) {
+//Buscamos una imagen segun su nombre y retornamos el resultado
+function buscarImagenPorNombre(nombre) {
   for (let i = 0; i < imagenes.length; i++) {
-    if (imagenes[i].name == name) {
+    if (imagenes[i].nombre == nombre) {
       return imagenes[i];
     }
   }
   return null;
 }
-console.log(imagenes);
-console.log(selectImg.value);
 
+//Buscamos una imagen segun su ruta y retornamos el resultado
+function buscarImagenPorRuta(img) {
+  let imagen = imagenes.find((imagen) => imagen.ruta == img);
+  if (imagen) {
+    return imagen.nombre;
+  }
+}
+//Buscamos un producto segun su ID y retornamos el resultado
+function buscarProductoPorID(productId) {
+  for (let i = 0; i < pedido.length; i++) {
+    if (pedido[i].id == productId) {
+      return pedido[i];
+    }
+  }
+  //Limpiamos los formularios para la proxima carga de datos
+  nombre_input.value = "";
+  descripcion_input.value = "";
+  precio_input.value = "";
+  return null;
+}
