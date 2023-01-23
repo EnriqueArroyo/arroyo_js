@@ -65,7 +65,7 @@
                   onclick="listarProductos()"
                   >Modificar productos</a
                 >
-                <!--Debo de pasar el OnClick a un eventListen-->
+                <!--Debo de pasar el OnClick a un eventListen  ---------------------------------------------->
               </li>
               <li class="nav-item">
                 <a
@@ -75,15 +75,6 @@
                   data-bs-target="#eliminar-producto"
                   onclick="listarProductosE()"
                   >Eliminar productos</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link disabled"
-                  href="#"
-                  tabindex="-1"
-                  aria-disabled="true"
-                  >proximamente</a
                 >
               </li>
             </ul>
@@ -177,10 +168,7 @@
                   id="precio-input"
                   name="precio"
                 />
-
-                <div id="emailHelp" class="form-text">
-                
-                </div>
+                <div id="emailHelp" class="form-text"></div>
               </div>
             </form>
             <div class="container">
@@ -193,7 +181,9 @@
                     class="form-select"
                     aria-label="Default select example"
                     id="listadoImgCrear"
-                  ></select>
+                  >
+                  <!-- Uso de dom para cargar los Options con sus respectivos Values -->
+                </select>
                 </div>
                 <div class="col-6 text-right" id="crearImg">
                   <img
@@ -304,7 +294,9 @@
                       class="form-select"
                       aria-label="Default select example"
                       id="listadoImgModificar"
-                    ></select>
+                    >
+                    <!-- Uso de dom para cargar los Options con sus respectivos Values -->
+                  </select>
                   </div>
                   <div class="col-6 text-right" id="crearImgM">
                     <img
