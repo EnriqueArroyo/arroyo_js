@@ -236,21 +236,41 @@ function cargarProducto(array) {
   document.getElementById("formulario").reset();
 }
 
-// Modificar producto
+// Modificar producto ------------------------------------------------------------------- v
 const select = document.getElementById("selectProduct");
 const nombre_input = document.getElementById("nombre-inputm");
 const descripcion_input = document.getElementById("descripcion-inputm");
 let precio_input = document.getElementById("precio-inputm");
+let img_input = document.getElementById("crearImgM");
+let select_input = document.getElementById("listadoImgModificar");
+
 
 select.addEventListener("change", function () {
   const selectedProductId = select.value;
   const selectedProduct = findProductById(selectedProductId);
+  console.log(selectedProduct.imagen)
   if (selectedProduct != null) {
     nombre_input.value = selectedProduct.nombre;
     descripcion_input.value = selectedProduct.descripcion;
     precio_input.value = selectedProduct.precio;
+    img_input.innerHTML = `<img
+    src="img/${selectedProduct.imagen}"
+    class="img-fluid rounded float-right img-thumbnail"
+    alt=""
+  />`
+  
+  document.getElementById("listadoImgModificar").value = findImagenByPath(selectedProduct.imagen);
+  console.log(document.getElementById("listadoImgModificar").value)
+  console.log(findImagenByPath(selectedProduct.imagen))
   }
 });
+
+function findImagenByPath(img){
+  let imagen = imagenes.find((imagen) => imagen.path == img)
+  if(imagen){
+      return imagen.name;
+  }
+}
 
 function findProductById(productId) {
   for (let i = 0; i < pedido.length; i++) {
@@ -276,6 +296,7 @@ function modificarProducto(productId) {
       producto.descripcion =
         document.getElementById("descripcion-inputm").value;
       producto.precio = document.getElementById("precio-inputm").value;
+      producto.imagen = findImageByName(document.getElementById("listadoImgModificar").value).path;
     }
   });
 
