@@ -1,3 +1,5 @@
+
+
 //Declaro la clase para los productos
 class Producto {
   constructor(id, nombre, precio, cantidad, descripcion, imagen) {
@@ -9,7 +11,7 @@ class Producto {
     this.imagen = imagen;
   }
 }
-//Creo las instancias de los productos que voy a usar
+//Creo las instancias de los productos que voy a usar inicialmente como precreados
 const producto1 = new Producto(
   1,
   "Wraps",
@@ -48,15 +50,28 @@ let total = 0;
 const envio = 150;
 document.getElementById("total").innerHTML = total;
 
-//Creo un arreglo con los productos creados
-const pedido = [producto1, producto2, producto3, producto4];
+
+// Cargo los datos de Local Store y los paso 
+const almacenados = JSON.parse(localStorage.getItem("productos")) || [producto1, producto2, producto3, producto4];
+actualizarTabla(almacenados);
+const guardarLocal = (clave, valor) => {
+  localStorage.setItem(clave, valor);
+};
+
+guardarLocal("productos", JSON.stringify(almacenados));
+
+
+//let nuevoProducto = { nombre: "Nuevo producto", precio: 100 };
+//almacenados.push(nuevoProducto);
+
+console.log(almacenados);
 
 // Carga los productos del arreglo de pedido en pantalla
 refresh();
 function refresh() {
   let cardContainer = document.getElementById("card_container");
   cardContainer.innerHTML = ``;
-  pedido.forEach((producto) => {
+  almacenados.forEach((producto) => {
     cardContainer.innerHTML += `<div class="col">
   <div class="card h-100">
     <img
@@ -74,17 +89,21 @@ function refresh() {
     <div class="card-footer">
       <button
         id=""
-        onclick="disminuir(${pedido.indexOf(producto)})"
+        onclick="disminuir(${almacenados.indexOf(producto)})"
         value="decrease"
       >
         -
       </button>
 
       <div class="contador_contenedor">
-        <h1 id="${pedido.indexOf(producto)}" value="">${producto.cantidad}</h1>
+        <h1 id="${almacenados.indexOf(producto)}" value="">${
+      producto.cantidad
+    }</h1>
       </div>
 
-      <button id="add-button" onclick="aumentar(${pedido.indexOf(producto)})">
+      <button id="add-button" onclick="aumentar(${almacenados.indexOf(
+        producto
+      )})">
         +
       </button>
     </div>
@@ -98,7 +117,7 @@ function listarProductos() {
   let selectProduct = document.getElementById("selectProduct");
   selectProduct.innerHTML = `<option value="">Seleccione un producto</option>`;
 
-  pedido.forEach((producto) => {
+  almacenados.forEach((producto) => {
     selectProduct.innerHTML += `<option value="${producto.id}">${producto.nombre}</option>`;
   });
 }
@@ -107,7 +126,7 @@ function listarProductosE() {
   let selectProductE = document.getElementById("selectProductE");
   selectProductE.innerHTML = `<option value="">Seleccione un producto</option>`;
 
-  pedido.forEach((producto) => {
+  almacenados.forEach((producto) => {
     selectProductE.innerHTML += `<option value="${producto.id}">${producto.nombre}</option>`;
   });
 }
@@ -117,27 +136,31 @@ calcTotal();
 
 //Funcion para agregar cantidad al producto
 function aumentar(index) {
-  let producto = pedido[index];
+  let producto = almacenados[index];
   producto.cantidad++;
   refrescar(index);
   calcTotal();
-  actualizarTabla(pedido);
+  actualizarTabla(almacenados);
   console.log(
     `Añadiste un ${producto.nombre} y ahora hay${producto.cantidad} en el pedido`
   );
+  localStorage.setItem("productos", JSON.stringify(almacenados));
+
   return producto.cantidad;
 }
 //Funcion para disminuir la cantidad al producto. Cuenta con una validacion para productos que ya estan en 0
 function disminuir(index) {
-  let producto = pedido[index];
+  let producto = almacenados[index];
   if (producto.cantidad > 0) {
     producto.cantidad--;
     refrescar(index);
+    localStorage.setItem("productos", JSON.stringify(almacenados));
+
     console.log(
       `quitaste un ${producto.nombre} y ahora hay${producto.cantidad} en el pedido`
     );
     calcTotal();
-    actualizarTabla(pedido);
+    actualizarTabla(almacenados);
     return producto.cantidad;
   } else {
     console.log(
@@ -148,7 +171,7 @@ function disminuir(index) {
 //Funcion que recorre el arreglo de productos y calcula el total del pedido
 function calcTotal() {
   let totalFinal = 0;
-  pedido.forEach((producto) => {
+  almacenados.forEach((producto) => {
     total = producto.cantidad * producto.precio;
     totalFinal += total;
     console.log(
@@ -162,10 +185,11 @@ function calcTotal() {
 
 //Funcion que refresca los valores al iniciar el html, aumentar y/o disminuir cantidades
 function refrescar(index) {
-  let producto = pedido[index];
+  let producto = almacenados[index];
   document.getElementById(index).innerHTML = producto.cantidad;
   document.getElementById("subtotal").innerHTML = calcTotal();
-  actualizarTabla(pedido);
+  actualizarTabla(almacenados);
+  localStorage.setItem("productos", JSON.stringify(almacenados));
 }
 
 //Funcion que actualiza la tabla donde se listan los productos seleccionados por el usuario
@@ -178,7 +202,7 @@ function actualizarTabla(pedido) {
   tbody.innerHTML = "";
 
   // Funcion que recorre el arreglo de objetos
-  pedido.forEach(function (objeto) {
+  almacenados.forEach(function (objeto) {
     // Creamos una fila para cada objeto
     var fila = document.createElement("tr");
     if (objeto.cantidad == 0) return;
@@ -209,7 +233,7 @@ function actualizarTabla(pedido) {
 let crearProductoBtn = document.getElementById("crear-productos-btn");
 //Adjunto el evento
 crearProductoBtn.addEventListener("click", () => {
-  cargarProducto(pedido);
+  cargarProducto(almacenados);
 });
 function cargarProducto(array) {
   let id_max = 0;
@@ -232,10 +256,11 @@ function cargarProducto(array) {
     buscarImagenPorNombre(imagen_input.value).ruta
   );
   array.push(producto);
-  console.log(pedido);
+  console.log(almacenados);
   console.log("hiciste clic");
   refresh();
   document.getElementById("formulario").reset();
+  localStorage.setItem("productos", JSON.stringify(almacenados));
 }
 
 // Modificar producto ------------------------------------------------------------------- v
@@ -272,7 +297,7 @@ modificarProductoBtn.addEventListener("click", () => {
 
 //Modificamos el producto según su ID
 function modificarProducto(productId) {
-  pedido.forEach((producto) => {
+  almacenados.forEach((producto) => {
     if (producto.id == productId) {
       producto.nombre = document.getElementById("nombre-inputm").value;
       producto.descripcion =
@@ -284,12 +309,13 @@ function modificarProducto(productId) {
     }
   });
   console.log("modificaste un producto");
-  console.log(pedido);
+  console.log(almacenados);
   refresh();
   document.getElementById("formulario").reset();
-  actualizarTabla(pedido);
+  actualizarTabla(almacenados);
   calcTotal();
   document.getElementById("subtotal").innerHTML = calcTotal();
+  localStorage.setItem("productos", JSON.stringify(almacenados));
 
   nombre_input.value = "";
   descripcion_input.value = "";
@@ -314,18 +340,20 @@ eliminarProductoBtn.addEventListener("click", () => {
 //Eliminamos el producto según su ID
 function eliminarProducto(productId) {
   let indice = 0;
-  pedido.forEach((producto) => {
+  almacenados.forEach((producto) => {
     if (producto.id == productId) {
-      pedido.splice(indice, 1);
+      almacenados.splice(indice, 1);
       console.log("eliminaste un producto");
-      console.log(pedido);
+      console.log(almacenados);
     }
     indice++;
   });
-  actualizarTabla(pedido);
+  actualizarTabla(almacenados);
   document.getElementById("subtotal").innerHTML = calcTotal();
   calcTotal();
   refresh();
+localStorage.setItem("productos", JSON.stringify(almacenados));
+
 }
 
 //Arreglo de objetos imagen para guardar su nombre y ruta
@@ -421,9 +449,9 @@ function buscarImagenPorRuta(img) {
 }
 //Buscamos un producto segun su ID y retornamos el resultado
 function buscarProductoPorID(productId) {
-  for (let i = 0; i < pedido.length; i++) {
-    if (pedido[i].id == productId) {
-      return pedido[i];
+  for (let i = 0; i < almacenados.length; i++) {
+    if (almacenados[i].id == productId) {
+      return almacenados[i];
     }
   }
   //Limpiamos los formularios para la proxima carga de datos
