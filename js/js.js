@@ -1,6 +1,5 @@
 
 
-//Declaro la clase para los productos
 class Producto {
   constructor(id, nombre, precio, cantidad, descripcion, imagen) {
     this.id = id;
@@ -61,17 +60,16 @@ const guardarLocal = (clave, valor) => {
 guardarLocal("productos", JSON.stringify(almacenados));
 
 
-//let nuevoProducto = { nombre: "Nuevo producto", precio: 100 };
-//almacenados.push(nuevoProducto);
 
 console.log(almacenados);
 
 // Carga los productos del arreglo de pedido en pantalla
-refresh();
-function refresh() {
+refresh(almacenados);
+
+function refresh(productos) {
   let cardContainer = document.getElementById("card_container");
   cardContainer.innerHTML = ``;
-  almacenados.forEach((producto) => {
+  productos.forEach((producto) => {
     cardContainer.innerHTML += `<div class="col">
   <div class="card h-100">
     <img
@@ -84,7 +82,7 @@ function refresh() {
     <div class="card-body">
       <h5 class="card-title">${producto.nombre}</h5>
       <p class="card-text">${producto.descripcion}</p>
-      <p class="card-text" >$${producto.precio}</p>
+      <p class="card-text">$${producto.precio}</p>
     </div>
     <div class="card-footer">
       <button
@@ -146,6 +144,24 @@ function aumentar(index) {
   );
   localStorage.setItem("productos", JSON.stringify(almacenados));
 
+  Toastify({
+    text: "Se añadio " + producto.nombre,
+    duration: 3000,
+    newWindow: false,
+    close: false,
+    gravity: "bottom", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "#ffffffc4",
+      color: "black",
+      border: "solid 1px #ffc45f",
+      height: "45px",
+      padding: "10px",
+    },
+    onClick: function () {}, // Callback after click
+  }).showToast();
+
   return producto.cantidad;
 }
 //Funcion para disminuir la cantidad al producto. Cuenta con una validacion para productos que ya estan en 0
@@ -161,6 +177,23 @@ function disminuir(index) {
     );
     calcTotal();
     actualizarTabla(almacenados);
+    Toastify({
+      text: "Se quito " + producto.nombre,
+      duration: 3000,
+      newWindow: false,
+      close: false,
+      gravity: "bottom", // `top` or `bottom`
+      position: "right", // `left`, `center` or `right`
+      stopOnFocus: true, // Prevents dismissing of toast on hover
+      style: {
+        background: "#ffffffc4",
+        color: "black",
+        border: "solid 1px #ffc45f",
+        height: "45px",
+        padding: "10px",
+      },
+      onClick: function () {}, // Callback after click
+    }).showToast();
     return producto.cantidad;
   } else {
     console.log(
@@ -233,7 +266,9 @@ function actualizarTabla(pedido) {
 let crearProductoBtn = document.getElementById("crear-productos-btn");
 //Adjunto el evento
 crearProductoBtn.addEventListener("click", () => {
-  cargarProducto(almacenados);
+  setTimeout(() => {
+    cargarProducto(almacenados);
+  }, 500);
 });
 function cargarProducto(array) {
   let id_max = 0;
@@ -258,7 +293,24 @@ function cargarProducto(array) {
   array.push(producto);
   console.log(almacenados);
   console.log("hiciste clic");
-  refresh();
+  refresh(almacenados);
+  Toastify({
+    text: "Se creo " + producto.nombre,
+    duration: 3000,
+    newWindow: false,
+    close: false,
+    gravity: "bottom", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "#ffffffc4",
+      color: "black",
+      border: "solid 1px #ffc45f",
+      height: "45px",
+      padding: "10px",
+    },
+    onClick: function () {}, // Callback after click
+  }).showToast();
   document.getElementById("formulario").reset();
   localStorage.setItem("productos", JSON.stringify(almacenados));
 }
@@ -290,6 +342,7 @@ select.addEventListener("change", function () {
     );
   }
 });
+
 let modificarProductoBtn = document.getElementById("modificar-productos-btn");
 modificarProductoBtn.addEventListener("click", () => {
   modificarProducto(select.value);
@@ -306,11 +359,28 @@ function modificarProducto(productId) {
       producto.imagen = buscarImagenPorNombre(
         document.getElementById("listadoImgModificar").value
       ).ruta;
+      Toastify({
+        text: "Se modifico " + producto.nombre,
+        duration: 3000,
+        newWindow: false,
+        close: false,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "#ffffffc4",
+          color: "black",
+          border: "solid 1px #ffc45f",
+          height: "45px",
+          padding: "10px",
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
     }
   });
   console.log("modificaste un producto");
   console.log(almacenados);
-  refresh();
+  refresh(almacenados);
   document.getElementById("formulario").reset();
   actualizarTabla(almacenados);
   calcTotal();
@@ -342,6 +412,23 @@ function eliminarProducto(productId) {
   let indice = 0;
   almacenados.forEach((producto) => {
     if (producto.id == productId) {
+      Toastify({
+        text: "Se elimino " + producto.nombre,
+        duration: 3000,
+        newWindow: false,
+        close: false,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "#ffffffc4",
+          color: "black",
+          border: "solid 1px #ffc45f",
+          height: "45px",
+          padding: "10px",
+        },
+        onClick: function () {}, // Callback after click
+      }).showToast();
       almacenados.splice(indice, 1);
       console.log("eliminaste un producto");
       console.log(almacenados);
@@ -351,9 +438,8 @@ function eliminarProducto(productId) {
   actualizarTabla(almacenados);
   document.getElementById("subtotal").innerHTML = calcTotal();
   calcTotal();
-  refresh();
-localStorage.setItem("productos", JSON.stringify(almacenados));
-
+  refresh(almacenados);
+  localStorage.setItem("productos", JSON.stringify(almacenados));
 }
 
 //Arreglo de objetos imagen para guardar su nombre y ruta
@@ -459,4 +545,213 @@ function buscarProductoPorID(productId) {
   descripcion_input.value = "";
   precio_input.value = "";
   return null;
+}
+
+//Buscador
+const searchInput = document.querySelector(".form-control");
+searchInput.addEventListener("input", () => {
+  const searchTerm = searchInput.value.trim().toLowerCase();
+  const filteredProductos = almacenados.filter((producto) =>
+    producto.nombre.toLowerCase().includes(searchTerm)
+  );
+  refresh(filteredProductos);
+});
+
+//Nuevo Aleatorio (consiste en una funcion que crea un producto aleatorio, es mas para testing de forma de no tener que cargar productos a mano)------------------------------------------------------------------- v
+//Capturamos btn
+
+let cargarProductoBtn = document.getElementById("nuevo-aleatorio");
+//Adjunto el evento
+cargarProductoBtn.addEventListener("click", () => {
+  setTimeout(() => {
+    cargarAleatorio(almacenados);
+  }, 500);
+});
+
+function cargarAleatorio(array) {
+  let id_max = 0;
+  array.forEach((producto) => {
+    if (producto.id > id_max) {
+      id_max = producto.id;
+    }
+  });
+  console.log("El id máximo es =" + id_max);
+
+  //Arreglos para tomar los datos aleatorios
+  let nombres = [
+    "Galletas",
+    "Cerveza",
+    "Pasta",
+    "Yogurt",
+    "Leche",
+    "Queso",
+    "Pan",
+    "Jugo",
+    "Café",
+    "Chocolate",
+    "Ñoquis",
+    "Pizza",
+    "Empanadas",
+    "Milanesas",
+    "Hamburguesa",
+    "Sushi",
+    "Tacos",
+    "Ensalada",
+    "Churrasco",
+    "Wok",
+    "Sopa",
+    "Pescado",
+    "Pastas",
+    "Pollo",
+    "Carne",
+    "Risotto",
+    "Ramen",
+    "Fajitas",
+    "Curry",
+    "Ceviche",
+    "Cordero",
+    "Bruschetta",
+    "Tostadas",
+    "Kebab",
+    "Cangrejo",
+    "Asado",
+    "Tortilla",
+    "Wrap",
+    "Tartar",
+    "Quiche",
+  ];
+  let descripciones = [
+    "Delicioso",
+    "Saludable",
+    "Refrescante",
+    "Nutritivo",
+    "Energizante",
+    "Con vitaminas",
+    "Bajo en calorías",
+    "Con sabor a frutas",
+    "Con trozos de chocolate",
+    "Recién horneado",
+    "Deliciosa opción para toda la familia",
+    "Combinación perfecta de sabores",
+    "Ideal para compartir",
+    "La opción más saludable",
+    "Hecho con los mejores ingredientes",
+    "Un clásico de siempre",
+    "No te pierdas esta delicia",
+    "Increíblemente sabroso",
+    "El plato más popular",
+    "Irresistible sabor y textura",
+    "La opción vegetariana",
+    "Lo mejor de la cocina internacional",
+    "Una delicia para el paladar",
+    "La alternativa más fresca y saludable",
+    "Un verdadero manjar",
+    "Un toque picante",
+    "La opción más exótica",
+    "El plato más sofisticado",
+    "Una experiencia gastronómica única",
+    "El toque gourmet",
+    "Con ingredientes frescos de la huerta",
+    "Una explosión de sabor en tu boca",
+    "La opción más tradicional",
+    "Una opción diferente y sabrosa",
+    "Un plato que no te puedes perder",
+  ];
+
+  const precios = () => {
+    const min = 1200;
+    const max = 4500;
+    const mult = 50;
+    const rango = (max - min) / mult + 1;
+    const total = Array.from({ length: rango }, (_, i) => min + i * mult);
+    return total[Math.floor(Math.random() * total.length)];
+  };
+  console.log("Paso 3 ---------------------------------");
+  function obtenerRutaAleatoria(imagenes) {
+    const indiceAleatorio = Math.floor(Math.random() * imagenes.length);
+
+    return imagenes[indiceAleatorio].ruta;
+  }
+
+  const producto = new Producto(
+    id_max + 1,
+    nombres[Math.floor(Math.random() * nombres.length)],
+    precios(),
+    0,
+    descripciones[Math.floor(Math.random() * descripciones.length)],
+    imagenes.length > 0 ? obtenerRutaAleatoria(imagenes) : ""
+  );
+  console.log("ruta aleatoria =", obtenerRutaAleatoria(imagenes));
+  console.log("producto aleatorio =", producto);
+
+  array.push(producto);
+  console.log(almacenados);
+  console.log("hiciste clic");
+  console.log("Creaste un producto aleatorio");
+  refresh(almacenados);
+  Toastify({
+    text: "Se creo " + producto.nombre,
+    duration: 3000,
+    newWindow: false,
+    close: false,
+    gravity: "bottom", // `top` or `bottom`
+    position: "right", // `left`, `center` or `right`
+    stopOnFocus: true, // Prevents dismissing of toast on hover
+    style: {
+      background: "#ffffffc4",
+      color: "black",
+      border: "solid 1px #ffc45f",
+      height: "45px",
+      padding: "10px",
+    },
+    onClick: function () {}, // Callback after click
+  }).showToast();
+  localStorage.setItem("productos", JSON.stringify(almacenados));
+}
+
+// Comprar o finalizar compra -------------------------------------------------------
+let finalizarVentaBtn = document.getElementById("finalizar-venta");
+//Adjunto el evento
+finalizarVentaBtn.addEventListener("click", () => {
+  setTimeout(() => {
+    finalizarVenta();
+  }, 500);
+});
+
+function finalizarVenta() {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success",
+      cancelButton: "btn btn-danger",
+    },
+    buttonsStyling: false,
+  });
+
+  swalWithBootstrapButtons
+    .fire({
+      title: "Desea finalizar el pedido?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Finalizar",
+      cancelButtonText: "Continuar comprando",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons.fire(
+          "Finalizado",
+          "Muchas gracias por comprar!",
+          "success"
+        );
+
+        almacenados.forEach((producto) => {
+          producto.cantidad = 0;
+        });
+
+        actualizarTabla(almacenados);
+        calcTotal();
+
+        localStorage.setItem("productos", JSON.stringify(almacenados));
+      }
+    });
 }
