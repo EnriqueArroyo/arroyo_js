@@ -1,0 +1,34 @@
+[
+    {
+      "id": 1,
+      "nombre": "Wraps",
+      "precio": 350.0,
+      "cantidad": 0,
+      "descripcion": "Los Wraps son muy ricos y nutritivos",
+      "imagen": "wraps.png"
+    },
+    {
+      "id": 2,
+      "nombre": "Parrillada",
+      "precio": 2500.0,
+      "cantidad": 0,
+      "descripcion": "Parrillada completa para una persona",
+      "imagen": "parrillada.png"
+    },
+    {
+      "id": 3,
+      "nombre": "Combo completo",
+      "precio": 750.0,
+      "cantidad": 0,
+      "descripcion": "Hamburguesa con bebida + fritas",
+      "imagen": "combo-mc.webp"
+    },
+    {
+      "id": 4,
+      "nombre": "Medialunas",
+      "precio": 150.0,
+      "cantidad": 0,
+      "descripcion": "Medialunas tipicas",
+      "imagen": "medialunas.png"
+    }
+  ]

@@ -14,6 +14,11 @@
     />
     <!--CSS -->
     <link rel="stylesheet" href="css\style.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
     <!--Fav Icon -->
     <link
       rel="shortcut icon"
@@ -26,14 +31,15 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#"
-            ><img
+          <a class="navbar-brand" href="#">
+            <img
               id="logo-arrow"
               class="navbar-brand"
               src="img/Arrow_RetroBlue_Gold.png"
               alt="logo"
               height="35rem"
-          /></a>
+            />
+          </a>
           <button
             class="navbar-toggler"
             type="button"
@@ -47,15 +53,33 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item">
+              <li class="nav-item dropdown">
                 <a
+                  class="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
                   href="#"
-                  class="nav-link"
-                  data-bs-toggle="modal"
-                  data-bs-target="#crear-producto"
-                  >Crear productos</a
+                  role="button"
+                  aria-expanded="false"
+                  >Crear Productos</a
                 >
+                <ul class="dropdown-menu">
+                  <li class="nav-item">
+                    <a
+                      href=""
+                      class="dropdown-item"
+                      data-bs-toggle="modal"
+                      data-bs-target="#crear-producto"
+                      >Crear productos</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" id="nuevo-aleatorio" class="dropdown-item">
+                      Crear Aleatoriamente
+                    </a>
+                  </li>
+                </ul>
               </li>
+
               <li class="nav-item">
                 <a
                   href="#"
@@ -78,6 +102,18 @@
                 >
               </li>
             </ul>
+            <!-- Mueva el formulario de búsqueda después de la lista de elementos de navegación -->
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <form class="d-flex">
+                <input
+                  id="buscador"
+                  class="form-control me-2"
+                  type="search"
+                  placeholder="Buscar Producto"
+                  aria-label="Producto"
+                />
+              </form>
+            </ul>
           </div>
         </div>
       </nav>
@@ -92,7 +128,7 @@
           </section>
           <section class="pedido col-sm-12 col-md-12 col-lg-4">
             <h1>Su pedido</h1>
-            <table id="pedido"> 
+            <table id="pedido">
               <thead>
                 <tr>
                   <th scope="col">Cantidad</th>
@@ -108,7 +144,13 @@
               ><br />Total: $<span id="total"></span>
             </p>
             <div class="d-grid gap-2 col-4 mx-auto">
-              <button class="btn btn-primary" type="button">Comprar</button>
+              <button
+                id="finalizar-venta"
+                class="btn btn-primary"
+                type="button"
+              >
+                Comprar
+              </button>
             </div>
           </section>
         </div>
@@ -182,8 +224,8 @@
                     aria-label="Default select example"
                     id="listadoImgCrear"
                   >
-                  <!-- Uso de dom para cargar los Options con sus respectivos Values -->
-                </select>
+                    <!-- Uso de dom para cargar los Options con sus respectivos Values -->
+                  </select>
                 </div>
                 <div class="col-6 text-right" id="crearImg">
                   <img
@@ -295,8 +337,8 @@
                       aria-label="Default select example"
                       id="listadoImgModificar"
                     >
-                    <!-- Uso de dom para cargar los Options con sus respectivos Values -->
-                  </select>
+                      <!-- Uso de dom para cargar los Options con sus respectivos Values -->
+                    </select>
                   </div>
                   <div class="col-6 text-right" id="crearImgM">
                     <img
@@ -389,7 +431,14 @@
     <!-- FIN Modal Eliminar Producto-->
 
     <footer></footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
     <script src="js/js.js"></script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"

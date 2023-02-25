@@ -1,5 +1,5 @@
 body {
-  background: linear-gradient(80deg, #fff0a7, #ffc45f, #fff0a7, #ffc45f);
+  background: linear-gradient(80deg, #fff0a7, #ffc45f, #fff0a7, #ffc45f, #ffffffc4);
   background-size: 400% 400%;
   animation: anim 15s infinite ease-in-out;
   background-attachment: fixed;
@@ -32,9 +32,9 @@ main {
   background: #f7f7f7;
   border: 1px solid rgb(255, 255, 255);
   border-radius: 12px;
-  
 }
 .pedido p {
+  
   margin-top: 50px;
   padding-top: 20px;
   border-top: solid 1px rgb(149, 149, 149);
@@ -86,6 +86,14 @@ main {
   font-size: 1.5rem;
 }
 
+.card {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.card.fade-in {
+  opacity: 1;
+}
+
 .value_cont {
   width: 100px;
   height: 100px;
@@ -101,3 +109,5 @@ main {
   justify-content: center;
   align-items: center;
 }
+
+
